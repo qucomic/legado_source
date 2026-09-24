@@ -1,0 +1,43 @@
+{
+    "bookSourceName": "白鹿书院",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/s.bailushuyuan.org",
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "header": "{  \"User-Agent\": \"Mozilla\/5.0 (Linux; Android 8.1.0; JKM-AL00b Build\/HUAWEIJKM-AL00b; wv) AppleWebKit\/537.36 (KHTML, like Gecko) Version\/4.0 Chrome\/66.0.3359.126 MQQBrowser\/6.2 TBS\/044807 Mobile Safari\/537.36\"}",
+    "lastUpdateTime": "1787416195129",
+    "loginUrl": "https:\/\/s.bailushuyuan.org",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "meta[property=\"og:book:author\"]@content",
+        "coverUrl": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar img = doc.select('main img[alt$=小说封面]').first();\nif (img == null) { img = doc.select('main img[alt$=照片]').first(); }\nimg ? ('https:\/\/s.bailushuyuan.org' + img.attr('src')) : ''",
+        "intro": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar all = doc.getAllElements();\nvar ol = doc.select('ol.text-body-tertiary').first();\nvar olIdx = (ol != null) ? all.indexOf(ol) : -1;\nvar ps = doc.select('p.mb-2');\nvar txt = [];\nfor (var j = 0; j < ps.size(); j++) {\n  var pi = all.indexOf(ps.get(j));\n  if (olIdx < 0 || pi < olIdx) { txt.push(ps.get(j).text()); }\n}\ntxt.join('\\n');",
+        "kind": "@js:var doc=org.jsoup.Jsoup.parse(result);\nvar p=doc.select('p.mb-2').first();\nvar a=p?p.select('a').last():null;\na?a.text():''",
+        "name": "h1@text"
+    },
+    "ruleContent": {
+        "content": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar el = doc.select('#chaptersShowContent').first();\nvar h1 = doc.select('h1').first();\nel ? el.html() : ('请在此书源重新搜索' + (h1 ? h1.text() : '该作品'));"
+    },
+    "ruleExplore": {
+        "bookList": "main div.row.gx-1.gy-3.mb-3.text-center a",
+        "name": "div.text-truncate@text",
+        "bookUrl": "@js:var href=result.attr('href');var t=result.attr('title');\nvar u='https:\/\/s.bailushuyuan.org'+href;var ru=u;\nif(!t){try{var b=java.ajax(u);var j=b.indexOf('<a title=');\nif(j>=0){var k=b.indexOf('href=',j);if(k>=0){var q=b.charAt(k+5);\nvar k2=b.indexOf(q,k+6);\nif(k2>k){ru='https:\/\/s.bailushuyuan.org'+b.substring(k+6,k2);\n}}}}catch(e){}}t?u:ru"
+    },
+    "ruleSearch": {
+        "bookList": "main div.row.gx-1.gy-3.mb-3.text-center a",
+        "bookUrl": "@js:var href=result.attr('href');var t=result.attr('title');\nvar u='https:\/\/s.bailushuyuan.org'+href;var ru=u;\nif(!t){try{var b=java.ajax(u);var j=b.indexOf('<a title=');\nif(j>=0){var k=b.indexOf('href=',j);if(k>=0){var q=b.charAt(k+5);\nvar k2=b.indexOf(q,k+6);\nif(k2>k){ru='https:\/\/s.bailushuyuan.org'+b.substring(k+6,k2);\n}}}}catch(e){}}t?u:ru",
+        "checkKeyWord": "犬与鬼",
+        "name": "div.text-truncate@text"
+    },
+    "ruleToc": {
+        "chapterList": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar ols = doc.select('ol.text-body-tertiary li a');\nvar mainAs = doc.select('main a[title]');\nvar list = [];\nif (ols.size() > 0) {\n  for (var i = 0; i < ols.size(); i++) {\n    list.push(JSON.stringify({title: ols.get(i).text(), url: 'https:\/\/s.bailushuyuan.org' + ols.get(i).attr('href')}));\n  }\n} else {\n  for (var j = 0; j < mainAs.size(); j++) {\n    list.push(JSON.stringify({title: mainAs.get(j).attr('title'), url: 'https:\/\/s.bailushuyuan.org' + mainAs.get(j).attr('href')}));\n  }\n}\nlist;",
+        "chapterName": "$.title",
+        "chapterUrl": "$.url"
+    },
+    "searchUrl": "@js:\nvar any = '';\nvar exact = '';\nvar enc = encodeURIComponent(key);\nfor (var i = 1; i <= 9; i++) {\n  var u = 'https:\/\/s.bailushuyuan.org\/novel\/traditional\/categories\/' + i + '?name_cont=' + enc;\n  try {\n    var body = java.ajax(u);\n    if (body.indexOf('row gx-1 gy-3 mb-3 text-center') !== -1) {\n      if (!any) { any = u; }\n      if (body.indexOf('href=\"\/' + enc + '\"') !== -1) { exact = u; break; }\n    }\n  } catch(e) {}\n}\nexact || any || ('https:\/\/s.bailushuyuan.org\/novel\/traditional\/categories\/1?name_cont=' + enc);",
+    "weight": 0,
+    "bookSourceComment": "by狼崽儿  \/\/2026.8.23\n这个网站分别在不同的分类装了搜索页，所以搜索时是一条一条地试。为了避免停留在错误的搜索url里，尽可能搜作品全名。",
+    "exploreUrl": "言情小说::https:\/\/s.bailushuyuan.org\/言情小说\n武侠小说::https:\/\/s.bailushuyuan.org\/武侠小说\n现代小说::https:\/\/s.bailushuyuan.org\/现代小说\n外国小说::https:\/\/s.bailushuyuan.org\/外国小说\n侦探小说::https:\/\/s.bailushuyuan.org\/侦探小说\n科幻小说::https:\/\/s.bailushuyuan.org\/科幻小说\n古典小说::https:\/\/s.bailushuyuan.org\/古典小说\n军事小说::https:\/\/s.bailushuyuan.org\/军事小说\n纪实小说::https:\/\/s.bailushuyuan.org\/纪实小说"
+}

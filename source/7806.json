@@ -1,0 +1,57 @@
+{
+    "bookSourceComment": "恋上你中文 www.book630.org\n⚠️ 搜索必须登录（正文\/目录\/详情免登录）；请到书源登录界面登录或注册。\n搜索限频20秒\/次，书源已自动处理；如遇限频提示等待20秒即可。\n目录前100章在详情页，更多章节由目录分页自动翻页（每页100章）。\n正文每章可能分2~3页(_N.html)，书源自动拼接。",
+    "bookSourceGroup": "AI,R18",
+    "bookSourceName": "恋上你中文（登录搜索）",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.book630.org",
+    "bookUrlPattern": "https?:\/\/www\\.book630\\.org\/\\d+_\\d+\/?$",
+    "customButton": false,
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "✨全部更新::\/list0_{{page}}\/\n玄幻修真::\/list1_{{page}}\/\n重生穿越::\/list2_{{page}}\/\n都市异能::\/list3_{{page}}\/\n历史军事::\/list4_{{page}}\/\n网游竞技::\/list5_{{page}}\/\n科幻世界::\/list6_{{page}}\/\n灵异悬疑::\/list7_{{page}}\/\n言情女生::\/list8_{{page}}\/\n其他类型::\/list9_{{page}}\/",
+    "header": "{\"User-Agent\": \"Mozilla\/5.0 (Linux; Android 14; Pixel 8) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/126.0.0.0 Mobile Safari\/537.36\", \"Referer\": \"https:\/\/www.book630.org\/\"}",
+    "lastUpdateTime": "1788927807231",
+    "loginCheckJs": "(function(){var u=String(result.url()||'');var b=String(result.body()||'');if(u.indexOf('login.html')>=0||(b.indexOf('会员登录')>=0&&b.indexOf('user_code')>=0)){throw new Error('🔒 搜索需要登录：请到书源登录界面登录后再搜索（书架\/正文无需登录）');}if(b.indexOf('搜索间隔')>=0){var m=b.match(\/【(\\d+)】秒，请于\\s*([\\d:]+)\/);throw new Error('⏳ 站点搜索限频：'+(m?('间隔'+m[1]+'秒，请于 '+m[2]+' 后再搜'):'请约20秒后再试')+'！');}return result;})()",
+    "loginUi": "[{\"name\": \"帐号\", \"type\": \"text\"}, {\"name\": \"密码\", \"type\": \"password\"}, {\"name\": \"登录\", \"type\": \"button\", \"action\": \"login()\"}, {\"name\": \"注册帐号\", \"type\": \"text\", \"hint\": \"字母加数字3-15字\"}, {\"name\": \"注册密码\", \"type\": \"password\"}, {\"name\": \"手机号\", \"type\": \"text\", \"default\": \"13800001234\"}, {\"name\": \"注 册\", \"type\": \"button\", \"action\": \"register()\"}, {\"name\": \"检查登录状态\", \"type\": \"button\", \"action\": \"checkLogin()\"}]",
+    "loginUrl": "\nfunction login() {\n    var u = String(result.get('帐号') || '');\n    var p = String(result.get('密码') || '');\n    if (!u || !p) { java.toast('⚠️ 请先填写帐号和密码'); return; }\n    java.toast('⏳ 正在获取验证码，请在弹窗中输入（验证码会话60秒内有效，请尽快输入）');\n    var code = java.getVerificationCode('https:\/\/www.book630.org\/code.jpg?' + Math.random());\n    if (!code || String(code).trim() === '') { java.toast('⚠️ 未输入验证码'); return; }\n    java.toast('登录中...');\n    var body = 'user_name=' + encodeURIComponent(u) + '&user_pass=' + java.md5Encode(p) + '&user_code=' + encodeURIComponent(String(code).trim());\n    var r = java.post('https:\/\/www.book630.org\/qs_login_go.php', body, {\n        'Content-Type': 'application\/x-www-form-urlencoded',\n        'X-Requested-With': 'XMLHttpRequest',\n        'User-Agent': 'Mozilla\/5.0 (Linux; Android 14; Pixel 8) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/126.0.0.0 Mobile Safari\/537.36',\n        'Referer': 'https:\/\/www.book630.org\/login.html',\n        'Origin': 'https:\/\/www.book630.org'\n    });\n    var b = String(r.body() || '').replace(\/\\s\/g, '');\n    var d = b.split('|');\n    if (d[0] == '1') {\n        java.toast('✅ 登录成功，可以搜索了');\n        upLoginData({'帐号': u});\n    } else {\n        java.toast('❌ 登录失败: ' + (d[1] || '未知错误（验证码错误或已超60秒? 请重试）'));\n    }\n}\n\nfunction register() {\n    var u = String(result.get('注册帐号') || '');\n    var p = String(result.get('注册密码') || '');\n    var m = String(result.get('手机号') || '');\n    if (!u || !p || !m) { java.toast('⚠️ 请填写注册帐号\/注册密码\/手机号'); return; }\n    if (!\/^[A-Za-z0-9]{3,15}$\/.test(u)) { java.toast('⚠️ 帐号需为字母加数字，3-15字内'); return; }\n    java.toast('⏳ 正在获取验证码，请在弹窗中输入');\n    var code = java.getVerificationCode('https:\/\/www.book630.org\/code.jpg?' + Math.random());\n    if (!code || String(code).trim() === '') { java.toast('⚠️ 未输入验证码'); return; }\n    java.toast('注册中...');\n    var pw = java.md5Encode(p);\n    var body = 'name=' + encodeURIComponent(u) + '&pass=' + pw + '&pass2=' + pw + '&mobile=' + encodeURIComponent(m) + '&code=' + encodeURIComponent(String(code).trim());\n    var r = java.post('https:\/\/www.book630.org\/qs_register_go.php', body, {\n        'Content-Type': 'application\/x-www-form-urlencoded',\n        'X-Requested-With': 'XMLHttpRequest',\n        'User-Agent': 'Mozilla\/5.0 (Linux; Android 14; Pixel 8) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/126.0.0.0 Mobile Safari\/537.36',\n        'Referer': 'https:\/\/www.book630.org\/register.html',\n        'Origin': 'https:\/\/www.book630.org'\n    });\n    var b = String(r.body() || '').replace(\/\\s\/g, '');\n    var d = b.split('|');\n    if (d[0] == '1') {\n        java.toast('✅ ' + (d[1] || '注册成功') + '（已自动登录）');\n        upLoginData({'帐号': u, '注册帐号': u, '注册密码': ''});\n    } else {\n        java.toast('❌ 注册失败: ' + (d[1] || '未知错误（验证码错误? 帐号已存在?）'));\n    }\n}\n\nfunction checkLogin() {\n    java.toast('检查登录状态...');\n    var b = String(java.ajax('https:\/\/www.book630.org\/mybook.html') || '');\n    if (b.indexOf('会员书架') >= 0 && b.indexOf('user_code') < 0) {\n        var ck = String(cookie.getCookie('https:\/\/www.book630.org') || '');\n        var m = ck.match(\/user_name=([^;\\s]+)\/);\n        java.toast('✅ 已登录' + (m ? ('：' + java.base64Decode(m[1]).replace(\/\\0\/g, '')) : '') + '，可以搜索');\n    } else {\n        java.toast('❌ 未登录！本站搜索必须登录：请填好帐号密码后点「登录」按钮');\n    }\n}\n",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "meta[property=og:novel:author]@content",
+        "canReName": "true",
+        "coverUrl": "meta[property=og:image]@content",
+        "intro": "meta[property=og:description]@content",
+        "kind": "meta[property=og:novel:category]@content",
+        "lastChapter": "meta[property=og:novel:latest_chapter_name]@content",
+        "name": "meta[property=og:novel:book_name]@content"
+    },
+    "ruleContent": {
+        "content": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var el=d.select('#txt');if(el.size()==0){return '⚠️ 正文获取失败，请刷新重试';}var ps=el.first().select('p');var sb=[];for(var i=0;i<ps.size();i++){sb.push(String(ps.get(i).text()));}return sb.join('\\n');})()",
+        "nextContentUrl": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var m=String(baseUrl).match(\/_(\\d+)\\.html$\/);var cur=m?parseInt(m[1],10):0;var nxt=cur+1;var as=d.select('div.chapter-page-btn a');for(var i=0;i<as.size();i++){var a=as.get(i);if(String(a.text()).indexOf('下章')>=0){var h=a.attr('href');if(new RegExp('_'+nxt+'\\\\.html$').test(h)){return h;}}}return '';})()"
+    },
+    "ruleExplore": {
+        "author": "@js:result.select('span.s4').text()",
+        "bookList": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var ul=d.select('ul.sort_list').first();if(ul==null){throw new Error('⚠️ 列表解析失败');}return ul.select('li');})()",
+        "bookUrl": "@js:result.select('span.s2 a').attr('href')",
+        "kind": "@js:String(result.select('span.s1').text()).replace(\/[\\[\\]]\/g, '')",
+        "lastChapter": "@js:String(result.select('span.s2 a').attr('title')).replace(\/^最新章节：\/, '')",
+        "name": "@js:result.select('span.s2 a').text()"
+    },
+    "ruleSearch": {
+        "author": "@js:String(result.select('span.s5').text()).replace(\/^\\s+\/, '')",
+        "bookList": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));if(String(d.text()).indexOf('会员登录')>=0&&d.select('#user_code').size()>0){throw new Error('🔒 搜索需要登录：请到书源登录界面登录后再搜索');}var ul=d.select('ul.sort_list').first();if(ul==null){throw new Error('⚠️ 搜索结果异常：未找到结果列表');}var t=String(ul.text());if(t.indexOf('搜索间隔')>=0){var m=t.match(\/【(\\d+)】秒，请于\\s*([\\d:]+)\/);throw new Error('⏳ 站点搜索限频：'+(m?('间隔'+m[1]+'秒，请于 '+m[2]+' 后再搜'):'请约20秒后再试')+'！');}return ul.select('li');})()",
+        "bookUrl": "@js:result.select('span.s2 a').attr('href')",
+        "checkKeyWord": "我的",
+        "name": "@js:result.select('span.s2 a').text()"
+    },
+    "ruleToc": {
+        "chapterList": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var us=d.select('ul.chapter-list');if(us.size()==0){throw new Error('⚠️ 目录获取失败：未找到章节列表');}return us.get(us.size()-1).select('li');})()",
+        "chapterName": "@js:result.select('a').first().text()",
+        "chapterUrl": "@js:result.select('a').first().attr('href')",
+        "nextTocUrl": "@js:(function(){var d=(typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var sel=d.select('div.page_num select');if(sel.size()>0){var opts=sel.first().select('option');for(var i=0;i<opts.size();i++){if(opts.get(i).hasAttr('selected')){if(i+1<opts.size()){return opts.get(i+1).attr('value');}return '';}}return '';}var as=d.select('ul.btn-group a');for(var j=0;j<as.size();j++){if(String(as.get(j).text()).indexOf('章节目录')>=0){return as.get(j).attr('href');}}return '';})()"
+    },
+    "searchUrl": "{{(function(){var u='https:\/\/www.book630.org';var ck=String(cookie.getCookie(u));var parts=ck.split(';');var keep=[];for(var i=0;i<parts.length;i++){var p=parts[i].trim();if(p.indexOf('search_time=')!==0&&p!=='')keep.push(p);}cookie.setCookie(u,keep.join('; '));return '';})()}}https:\/\/www.book630.org\/search.html,{\"method\":\"POST\",\"body\":\"s={{key}}\",\"retry\":3}",
+    "weight": 0
+}

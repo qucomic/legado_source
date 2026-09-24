@@ -1,0 +1,46 @@
+{
+    "bookSourceGroup": "✦优",
+    "bookSourceName": "🄼黄金屋 -",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.huangjinwu.org\/",
+    "customButton": false,
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": false,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "@js:s=[];push=(a,b,d)=>s.push({title:a,url:b,style:{layout_flexBasisPercent:1\/d-.05,layout_flexGrow:1}});push(\"排行榜\",null,1);[[\"总点击\",\"allvisit\"],[\"月点击\",\"monthvisit\"],[\"周点击\",\"weekvisit\"],[\"总推荐\",\"allvote\"],[\"月推荐\",\"monthvote\"],[\"周推荐\",\"weekvote\"],[\"收藏榜\",\"goodnum\"],[\"字数榜\",\"size\"],[\"新书榜\",\"postdate\"]].map(([s,r])=>push(s,`\/rank\/${r}\/{{page}}.html`,3));push(\"分类\",null,1);[\"玄幻小说\",\"仙侠小说\",\"都市小说\",\"历史小说\",\"网游小说\",\"科幻小说\",\"灵异小说\",\"言情小说\",\"其他小说\"].map((s,i)=>push(s,`\/list\/${i+1}\/{{page}}.html`,3));push(\"标签\",null,1);[[\"生活\",\"16\"],[\"废土\",\"13162\"],[\"空间\",\"83\"],[\"修仙\",\"37\"],[\"高武\",\"82\"],[\"科幻\",\"39\"],[\"重生\",\"46\"],[\"娱乐\",\"41\"],[\"东方\",\"2\"],[\"诸天\",\"17\"],[\"言情\",\"56\"],[\"穿越\",\"4\"],[\"玄幻\",\"1\"],[\"系统流\",\"112\"],[\"末世\",\"49\"],[\"都市\",\"7\"],[\"异界\",\"15\"],[\"世界\",\"76\"],[\"仙侠\",\"23\"],[\"游戏\",\"14\"]].map(([s,r])=>push(s,`\/tag\/${r}\/{{page}}.html`,4));JSON.stringify(s);",
+    "lastUpdateTime": "1789132889732",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "[property=\"og:novel:author\"]@content",
+        "coverUrl": "[property=og:image]@content",
+        "intro": "[property=\"og:novel:update_time\"]@content&&\n[property=\"og:description\"]@content@js:'更新时间：'+result",
+        "kind": "[property~=category|status|tags]@content",
+        "lastChapter": "[property~=las?test_chapter_name]@content",
+        "name": "[property=\"og:novel:book_name\"]@content"
+    },
+    "ruleContent": {
+        "content": "#readerContent@p@text",
+        "nextContentUrl": "small@text##(\\d+)\\)$##$1###\n<js>\nArray.from(\n    { length: Number(result[0]) - 1 },\n    (_, i) => baseUrl.replace(\/\\\/?$\/g, '\/' + (i + 2) + '.html')\n)\n<\/js>"
+    },
+    "ruleExplore": {},
+    "ruleSearch": {
+        "author": ".book-author@text##^[\\w ]{2}：",
+        "bookList": ".book-card",
+        "bookUrl": "@href",
+        "checkKeyWord": "明克街",
+        "coverUrl": "a@href\n@js:'\/book\/files\/article\/image\/'+(n=\/(\\d+)\\D*$\/.exec(result)[1],n.length>3?n.slice(0,-3):'0')+'\/'+n+'\/'+n+'s.jpg'",
+        "intro": ".book-desc@text",
+        "kind": ".book-badge@text",
+        "name": ".book-title@text"
+    },
+    "ruleToc": {
+        "chapterList": "#chapterList.-1@a",
+        "chapterName": "text",
+        "chapterUrl": "href",
+        "nextTocUrl": ".page-link.-1@href##(\\d+)\\.html##$1###\n<js>\nArray.from(\n    { length: Number(result[0]) - 1 },\n    (_, i) => baseUrl.replace(\/\\\/?$\/g, '\/' + (i + 2) + '.html')\n)\n<\/js>"
+    },
+    "searchUrl": "\/search?keyword={{key}}",
+    "weight": 0
+}

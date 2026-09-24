@@ -1,0 +1,40 @@
+{
+    "bookSourceComment": "速读谷 www.sudugu.cc 书源。正文直接在章节页HTML的div.con中（无token校验、无广告），但章节分页（_2.html），用nextContentUrl按文字精确匹配'下一页'拼接（末页是'下一章'不可误拼）。搜索单结果时302直达书页，bookList用JS兼容。创建于2026-09-04。",
+    "bookSourceGroup": "",
+    "bookSourceName": "速读谷(sudugu.cc)20260904",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.sudugu.cc",
+    "checkKeyWord": "夜无疆",
+    "enabled": true,
+    "enabledCookieJar": false,
+    "header": "{\"User-Agent\": \"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/126.0 Safari\/537.36\"}",
+    "lastUpdateTime": "1790135789949",
+    "respondTime": 180000,
+    "searchUrl": "https:\/\/www.sudugu.cc\/modules\/article\/search.php,{\"method\": \"POST\", \"body\": \"searchkey={{key}}&action=login&searchtype=articlename\"}",
+    "ruleSearch": {
+        "bookList": "<js>var d = [];\nvar doc = org.jsoup.Jsoup.parse(result, baseUrl);\nvar items = doc.select('.item.clear');\nif (items.size() > 0) {\n    d = items;\n} else if (doc.select('#list li a').size() > 0) {\n    var name = doc.select('.itemtxt h1 a').text();\n    if (name) {\n        var author = doc.select('.itemtxt p a').first().text().replace('作者：', '');\n        var last = doc.select('.itemtxt ul li a').first().text();\n        var frag = '<div class=\"item clear\"><div class=\"itemtxt\"><h3><a href=\"' + baseUrl + '\">' + name + '<\/a><\/h3><ul><li>作者：' + author + '<\/li><li>阅读量：0<\/li><li>更新：<a>' + last + '<\/a><\/li><\/ul><\/div><\/div>';\n        d = org.jsoup.Jsoup.parseBodyFragment(frag).select('.item.clear');\n    }\n}\nd;<\/js>",
+        "name": "tag.h3@tag.a@text",
+        "bookUrl": "tag.h3@tag.a@href",
+        "author": "tag.li.0@text##作者：",
+        "lastChapter": "tag.li.2@tag.a@text"
+    },
+    "ruleBookInfo": {
+        "name": "class.itemtxt@tag.h1@tag.a@text",
+        "author": "class.itemtxt@tag.p.1@tag.a@text##作者：",
+        "kind": "class.itemtxt@tag.p.0@tag.span@text",
+        "coverUrl": "class.item@tag.img@src",
+        "intro": "class.des@text",
+        "lastChapter": "class.itemtxt@tag.ul.0@tag.li.0@tag.a@text",
+        "tocUrl": ""
+    },
+    "ruleToc": {
+        "chapterList": "id.list@tag.li@tag.a",
+        "chapterName": "text",
+        "chapterUrl": "href"
+    },
+    "ruleContent": {
+        "content": "@css:div.con@textNodes",
+        "nextContentUrl": "@css:.prenext span a:contains(下一页)@href"
+    },
+    "weight": 0
+}

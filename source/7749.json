@@ -1,0 +1,43 @@
+{
+    "bookSourceName": "福书网🌟",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/m.fushuw.org",
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "exploreUrl": "古代架空::@js:var c='gudaijiakong';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n现代都市::@js:var c='xiandaidushi';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n穿越重生::@js:var c='chuanyuechongsheng';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n玄幻灵异::@js:var c='xuanhuanlingyi';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n推理悬疑::@js:var c='tuilixuanyi';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n网游竞技::@js:var c='wangyoujingji';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\nBL同人::@js:var c='BLtongren';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\nGL百合::@js:var c='GLbaihe';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n本站推荐::@js:var c='bztuijian';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n热门排行::@js:var c='bzremen';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n周排行榜::@js:var c='bzremenweek';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';\n月排行榜::@js:var c='bzremenmonth';var b=source.bookSourceUrl;page==1?b+'\/'+c+'\/':b+'\/'+c+'\/index_'+(page-1)+'.html';",
+    "header": "{\n    \"User-Agent\": \"Mozilla\/5.0 (Linux; Android 10; K) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Mobile Safari\/537.36\"\n  }",
+    "lastUpdateTime": "1787627118194",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "@js:var doc=org.jsoup.Jsoup.parse(result);var el=doc.select('td.info_text span, div.title_info_right p').first();var t=el!=null?el.text():'';t.indexOf('作者：')==0?t.substring(3):t;",
+        "coverUrl": "div.title_info_left img@data-original",
+        "intro": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar el = doc.select('#text').first();\nvar t = el != null ? el.text() : '';\nvar a1 = t.indexOf('简介：');\nvar a2 = t.indexOf('文案：');\nvar a = a1 >= 0 && (a2 < 0 || a1 < a2) ? a1 : a2;\nvar b = t.indexOf('第1章');\nvar r = (a >= 0 && b > a) ? t.substring(a + 3, b).trim() : '';\nr.split(' 　　').join('\\n');",
+        "name": "h1@text"
+    },
+    "ruleContent": {
+        "content": "@js:\nvar doc = org.jsoup.Jsoup.parse(result);\nvar el = doc.select('#text').first();\nvar html = el != null ? el.html() : '';\nvar i = html.indexOf('<p>第');          \/\/ ① 从本章标记开始（切掉《书名》作者：+简介整段）\nif (i >= 0) { html = html.substring(i); }\nvar k = html.indexOf('id=\"goto-pl\"');   \/\/ ② 截断页脚噪音（评论\/JS\/推荐\/分页导航）\nif (k >= 0) { html = html.substring(0, k); }\nvar j = html.indexOf('耽美小说');       \/\/ ③ 删章末水印\nif (j >= 0) { html = html.substring(0, j); }\nhtml;"
+    },
+    "ruleExplore": {
+        "author": "@js:var s=result.select('span').get(1).text();var i=s.indexOf('作者：');i>=0?s.substring(i+3):s;",
+        "bookList": "li.book-li",
+        "bookUrl": "a@href",
+        "kind": "",
+        "name": "h4.book-title@text"
+    },
+    "ruleSearch": {
+        "author": "span[style]@text",
+        "bookList": "@js:\nvar m = result.match(\/searchid=(\\d+)\/);\nif (m != null) { cookie.setCookie(source.bookSourceUrl + '\/e\/search\/result\/', m[0]); }\njava.setContent(result);\njava.getElement('h2.r');",
+        "bookUrl": "a.l@href",
+        "name": "a.l@text"
+    },
+    "ruleToc": {
+        "chapterList": "@js:\nvar url = baseUrl;\nvar prefix = url.substring(0, url.lastIndexOf('\/') + 1);\nvar bid = url.substring(url.lastIndexOf('\/') + 1, url.length - 5);\nvar b = java.ajax(url);\nvar i = b.indexOf('<b>');\nvar j = i >= 0 ? b.indexOf('<\/b>', i) : -1;\nvar total = (i >= 0 && j > i) ? parseInt(b.substring(i + 3, j)) : 1;\nvar list = [];\nfor (var k = 0; k < total; k++) {\n  list.push(JSON.stringify({title: '第' + (k + 1) + '页', url: k == 0 ? url : prefix + bid + '_' + k + '.html'}));\n}\nlist;",
+        "chapterName": "$.title",
+        "chapterUrl": "$.url"
+    },
+    "searchUrl": "@js:\nvar sid = cookie.getCookie(source.bookSourceUrl + '\/e\/search\/result\/');\nvar s = sid.indexOf('searchid=') >= 0 ? sid.substring(sid.indexOf('searchid=') + 9) : '';\npage == 1 ? source.bookSourceUrl + '\/e\/search\/index.php?searchget=1&keyboard=' + encodeURIComponent(key) + '&show=title&tempid=1&tbname=article' : source.bookSourceUrl + '\/e\/search\/result\/index.php?page=' + (page - 1) + '&searchid=' + s;",
+    "weight": 0,
+    "bookSourceComment": "by狼崽儿 \/\/2026.8.25\n本书源的特点是将正文里面的简介移至详情页简介，使之更加规范清晰。"
+}

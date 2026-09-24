@@ -1,0 +1,48 @@
+{
+    "bookSourceComment": "by狼崽儿 \/\/2026.9.4\n虽然网站书籍已经不更新了，优点是保留了许多老书籍。\n有搜索30秒限制，所以已经内置移除cookie破除限制。\n有些小说正文内容不全，即缺少一段后文，自行辨别。",
+    "bookSourceName": "御宅屋🌟",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/yswhub.cc",
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "exploreUrl": "[\n  { \"title\": \"耽美\", \"url\": \"https:\/\/yswhub.cc\/sort\/1_{{page}}.html\" },\n  { \"title\": \"高辣文\", \"url\": \"https:\/\/yswhub.cc\/sort\/6_{{page}}.html\" },\n  { \"title\": \"言情\", \"url\": \"https:\/\/yswhub.cc\/sort\/5_{{page}}.html\" },\n  { \"title\": \"百合\", \"url\": \"https:\/\/yswhub.cc\/sort\/2_{{page}}.html\" },\n  { \"title\": \"玄幻\", \"url\": \"https:\/\/yswhub.cc\/sort\/3_{{page}}.html\" },\n  { \"title\": \"修仙\", \"url\": \"https:\/\/yswhub.cc\/sort\/4_{{page}}.html\" },\n  { \"title\": \"种田\", \"url\": \"https:\/\/yswhub.cc\/sort\/8_{{page}}.html\" },\n  { \"title\": \"网游\", \"url\": \"https:\/\/yswhub.cc\/sort\/10_{{page}}.html\" },\n  { \"title\": \"其他\", \"url\": \"https:\/\/yswhub.cc\/sort\/11_{{page}}.html\" },\n  { \"title\": \"腹黑\", \"url\": \"https:\/\/yswhub.cc\/sort\/7_{{page}}.html\" },\n  { \"title\": \"高干\", \"url\": \"https:\/\/yswhub.cc\/sort\/9_{{page}}.html\" },\n  { \"title\": \"科幻\", \"url\": \"https:\/\/yswhub.cc\/sort\/13_{{page}}.html\" }\n]",
+    "header": " {\n    \"User-Agent\": \"Mozilla\/5.0 (Linux; Android 10; K) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Mobile Safari\/537.36\"\n  }",
+    "lastUpdateTime": "1788492654646",
+    "loginUrl": "https:\/\/yswhub.cc",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "a[href*='\/author\/']@text",
+        "intro": "\/\/h3[contains(text(),'简介')]\/following-sibling::div[1]\/pre@text##……",
+        "kind": ".article_info_td div:contains(类别：)@text##类别：",
+        "name": "ul.h_nav_items li:last-of-type@text",
+        "tocUrl": "a.btn[href*='\/indexlist\/']@href"
+    },
+    "ruleContent": {
+        "content": "#nr1 p@textNodes",
+        "nextContentUrl": "div.nr_page td.next a:contains(下一页)@href"
+    },
+    "ruleExplore": {
+        "author": "p strong@text",
+        "bookList": "div.common-bookele",
+        "bookUrl": "h3 a@href",
+        "intro": "span.abstract a@text",
+        "name": "h3 a@text"
+    },
+    "ruleSearch": {
+        "author": "a[href*='\/author\/']@text",
+        "bookList": "section.SHsectionThree .SHsectionThree-middle p",
+        "bookUrl": "a[href*='\/read\/']@href",
+        "checkKeyWord": "",
+        "intro": "span:first-child@text",
+        "name": "a[href*='\/read\/']@text"
+    },
+    "ruleToc": {
+        "chapterList": "ul#jsList1 li.two a",
+        "chapterName": "@text",
+        "chapterUrl": "@href"
+    },
+    "searchUrl": "{{url=source.getKey();\ncookie.removeCookie(url);}}\/search\/?searchkey={{key}}&searchtype=all",
+    "weight": 0
+}

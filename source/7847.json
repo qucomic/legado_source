@@ -1,0 +1,60 @@
+{
+    "bookSourceComment": "\n\/\/登录切换接口，默认秋风。\n\/\/更改接口需刷新发现列表。\n\/\/可在首页书架添加以下网址：\n春雨书屋\nhttps:\/\/www.chunyushuwu.com\n夏日书屋\nhttps:\/\/www.xiarishuwu.com\n秋风书屋\nhttps:\/\/www.qiufengshuwu.com\n冬雪书屋\nhttps:\/\/www.dongxueshuwu.com",
+    "bookSourceGroup": "☣️精选senhora",
+    "bookSourceName": "四季书屋",
+    "bookSourceType": 0,
+    "bookSourceUrl": "sjsw:youke",
+    "bookUrlPattern": "https?:\/\/www.(chunyushuwu|xiarishuwu|qiufengshuwu|dongxueshuwu).com\/book\/\\d+.html",
+    "customButton": false,
+    "customOrder": -124,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "@js:\neval(String(source.loginUrl));\nvar sort=[],\npush=(title,surl,size)=>sort.push({\n\t\ttitle: title,\n\t\turl: surl?url+surl:\"\",\n\t\tstyle: {\n\t\t\t\tlayout_flexGrow: 1,\n\t\t\t\tlayout_flexBasisPercent: size\n\t\t\t}\n\t});\n\t\npush(\"小说分类\",null,1);\n\nvar kind=[\"男频小说\",\"女频小说\",\"中国文学\",\"外国文学\",\"轻小说\",\"百合小说\",\"耽美小说\",\"网盘资源\"].map((title,i)=>{\n\tlink=`\/sort\/${i+1}_{{page}}\/`;\n\tpush(title,link,0.25)\n\t})\n\t\nvar xbook=\"\/top\/postdate_{{page}}\/\";\npush(\"新书\",xbook,0.4);\npush(\"完本\",\"\/full\/{{page}}\/\",0.4);\npush(\"排行榜单\",null,1);\nvar ztop=\"\/top\/allvisit_{{page}}\/\";\npush(\"总排行榜\",ztop,0.25);\n\nvar top=[\n[\"日点击榜\",\"dayvisit\"],\n[\"周点击榜\",\"weekvisit\"],\n[\"月点击榜\",\"monthvisit\"],\n[\"总点击榜\",\"allvisit\"],\n[\"总推荐榜\",\"allvote\"],\n[\"字数排行\",\"size\"],\n[\"最新入库\",\"postdate\"],\n[\"最近更新\",\"lastupdate\"]\n].map(([title,u],i)=>{\n\tlink=`\/top\/${u}_{{page}}\/`;\n\tpush(title,link,0.25)\n\t})\n\t\nJSON.stringify(sort)",
+    "header": "{\n\t\"User-Agent\": \"Mozilla\/5.0 (Linux; Android 9) Mobile Safari\/537.36\",\n\"Referer\": \"{{baseUrl}}\"\n\t}",
+    "lastUpdateTime": "1789574097036",
+    "loginUi": "[\n    {\n        name: \"设置要使用的接口\",\n        type: \"button\",\n        action: \"java.toast('点击下面按钮即可设置，更改接口后需长按发现列表刷新。')\"\n    },\n    {\n        name: \"显示当前的接口\",\n        type: \"button\",\n        action: \"get(v)\"\n    },\n    {\n    \t   name: \"接口1：春雨书屋\",\n    \t   type: \"button\",\n    \t   action: \"set(1)\"\n    \t},\n    \t{\n    \t   name: \"接口2：夏日书屋\",\n    \t   type: \"button\",\n    \t   action: \"set(2)\"\n    \t},\n    \t{\n    \t   name: \"接口3：秋风书屋\",\n    \t   type: \"button\",\n    \t   action: \"set(3)\"\n    \t},\n    \t{\n    \t   name: \"接口4：冬雪书屋\",\n    \t   type: \"button\",\n    \t   action: \"set(4)\"\n    \t}\n]",
+    "loginUrl": "\/\/接口设置，以及链接\nvar v=source.getVariable(),\nc=\"https:\/\/www.chunyushuwu.com\",\nx=\"https:\/\/www.xiarishuwu.com\",\nq=\"https:\/\/www.qiufengshuwu.com\",\nd=\"https:\/\/www.dongxueshuwu.com\";\nvar data={\n\t1:\"1：春雨书屋\\n\"+c,\n\t2:\"2：夏日书屋\\n\"+x,\n\t3:\"3：秋风书屋\\n\"+q,\n\t4:\"4：冬雪书屋\\n\"+d\n\t}\/\/接口数据\n\/\/判断接口\nif(!v||v==\"\"){\n\tv=3;\n\tsource.setVariable(v);\n\tjava.toast(\"未设置接口，使用默认秋风。\")\n\t}else(v=v)\n\/\/设置保存接口\nfunction set(num){\n\tvar show=\"设置成功！当前接口：\\n接口\";\n\tjava.toast(show+data[num]);\n\treturn source.setVariable(num)\n\t}\n\/\/获取显示接口\nfunction get(v){\n\tvar show=\"当前接口：\\n接口\"+data[v];\n\treturn java.longToast(show)\n\t}\n\t\/\/按接口获取网址\nvar url;\nurl=v==1?c:v==2?x:v==3?q:v==4?d:q;\nurl;",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": ".infotype a@text",
+        "canReName": "1",
+        "coverUrl": ".infohead img@src",
+        "intro": "#intro p@text",
+        "kind": ".infotype p.1:2:3@text##.*：",
+        "lastChapter": ".list_xm a.0@text",
+        "name": ".cataloginfo h3@text",
+        "tocUrl": ".gochapter a@href"
+    },
+    "ruleContent": {
+        "content": "#novelcontent p@html"
+    },
+    "ruleExplore": {
+        "author": "p.author@text",
+        "bookList": ".article||.full_content||.articlegeneral",
+        "bookUrl": "a.0@href",
+        "coverUrl": "img@data-src||a.0@href\n@js:\nvar id,iid,img,\nhtml=\/html\/;\nif(html.test(result)){\n\tid=result.match(\/\\d+\/)[0];\n\tiid=parseInt(id\/1000);\nimg=`https:\/\/www.pilixiaoshuo.com\/files\/article\/image\/${iid}\/${id}\/${id}s.jpg`;\n\t}else{img=result}\nimg;",
+        "intro": "p.simple@text",
+        "kind": ".p1@text##\\[|\\]",
+        "name": "h6@text||.p2@text"
+    },
+    "ruleSearch": {
+        "author": "a.1@text",
+        "bookList": "p.sone",
+        "bookUrl": "a.0@href",
+        "checkKeyWord": "剑来",
+        "coverUrl": "a.0@href\n@js:\nvar id=result.match(\/\\d+\/)[0],\niid=parseInt(id\/1000);\n`https:\/\/www.pilixiaoshuo.com\/files\/article\/image\/${iid}\/${id}\/${id}s.jpg`",
+        "kind": "0",
+        "name": "a.0@text"
+    },
+    "ruleToc": {
+        "chapterList": "ul.chapters li ",
+        "chapterName": "text",
+        "chapterUrl": "a@href",
+        "isVolume": ".juan@text"
+    },
+    "searchUrl": "{{eval(String(source.loginUrl));\nurl}}\/s.html,{\n  \"body\": \"s={{key}}&type=articlename\",\n  \"charset\": \"GBK\",\n  \"method\": \"POST\"\n}",
+    "variableComment": "1：春雨书屋\n2：夏日书屋\n3：秋风书屋\n4：冬雪书屋",
+    "weight": 0
+}

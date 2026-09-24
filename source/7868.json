@@ -1,0 +1,41 @@
+{
+    "bookSourceGroup": "搜索",
+    "enabled": true,
+    "header": "{\n  \"User-Agent\": \"Mozilla\/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit\/605.1.15 (KHTML, like Gecko) Version\/16.0 Mobile\/15E148 Safari\/604.1\",\n  \"Accept\": \"text\/html,application\/xhtml+xml,application\/xml;q=0.9,*\/*;q=0.8\",\n  \"Accept-Language\": \"zh-CN,zh;q=0.9\"\n}",
+    "ruleExplore": {
+        "intro": "p.m-book-description@text",
+        "kind": "p.m-book-meta@text##.*?·\\s*",
+        "bookUrl": "a@href##^(\/.*)##https:\/\/m.libahao2.com$1",
+        "bookList": "article.m-catalog-item a.m-book-row, .m-cover-shelf a.m-cover-book",
+        "author": "p.m-book-meta@text##·.*||p@text",
+        "lastChapter": "a.m-catalog-chapter span:nth-child(2)@text",
+        "name": "h3.m-book-title@text||h3@text",
+        "coverUrl": "img.m-cover@src||img@src"
+    },
+    "bookSourceType": 0,
+    "ruleToc": {
+        "chapterUrl": "a@href",
+        "chapterName": "a@text",
+        "chapterList": "ol li"
+    },
+    "exploreUrl": "[\n  {\"title\":\"玄幻魔法\",\"url\":\"\/xuanhuan\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"武侠修真\",\"url\":\"\/xiuzhen\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"都市言情\",\"url\":\"\/dushi\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"历史军事\",\"url\":\"\/lishi\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"游戏竞技\",\"url\":\"\/wangyou\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"科幻灵异\",\"url\":\"\/kehuan\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"女生言情\",\"url\":\"\/nvpin\/{{page}}\",\"style\":{\"layout_flexGrow\":1}},\n  {\"title\":\"其他小说\",\"url\":\"\/qita\/{{page}}\",\"style\":{\"layout_flexGrow\":1}}\n]",
+    "customOrder": -1,
+    "searchUrl": "\/sou?wd={{key}}",
+    "ruleSearch": {
+        "intro": "p.m-book-description@text",
+        "kind": "p.m-book-meta@text##.*?·\\s*||span.m-pill@text",
+        "bookUrl": "a@href##^(\/.*)##https:\/\/m.libahao2.com$1",
+        "bookList": "a.m-book-row",
+        "author": "p.m-book-meta@text##·.*",
+        "name": "h3.m-book-title@text",
+        "coverUrl": "img.m-cover@src"
+    },
+    "bookSourceName": "篱笆好文学",
+    "bookSourceUrl": "https:\/\/m.libahao2.com",
+    "ruleContent": {
+        "content": "#chapterText@p@html",
+        "nextContentUrl": "text.下一页@href"
+    },
+    "enabledExplore": true,
+    "lastUpdateTime": "1790223077187"
+}

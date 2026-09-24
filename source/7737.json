@@ -1,0 +1,50 @@
+{
+    "bookSourceComment": "移动版书源，需在APP内登录后使用搜索功能。修复目录获取，支持分页完整目录",
+    "bookSourceGroup": "AI",
+    "bookSourceName": "皮皮小说（登录搜索）",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.ppshu.net",
+    "customButton": false,
+    "customOrder": 1,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "玄幻修真::\/list\/1\/{{page}}.html\n重生穿越::\/list\/2\/{{page}}.html\n都市小说::\/list\/3\/{{page}}.html\n军史小说::\/list\/4\/{{page}}.html\n网游小说::\/list\/5\/{{page}}.html\n科幻小说::\/list\/6\/{{page}}.html\n灵异小说::\/list\/7\/{{page}}.html\n言情小说::\/list\/8\/{{page}}.html\n其他小说::\/list\/9\/{{page}}.html",
+    "header": "{\"User-Agent\": \"Mozilla\/5.0 (Linux; Android 10; SM-G981B) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Mobile Safari\/537.36\"}",
+    "lastUpdateTime": "1787383968758",
+    "loginUrl": "https:\/\/www.ppshu.net\/login.html",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "span.author@text",
+        "coverUrl": ".book-img img.0@src",
+        "intro": "meta[name=\"description\"]@content",
+        "kind": "p.tag span.blue@text",
+        "lastChapter": "p.update a@text",
+        "name": "div.bookname h1@text"
+    },
+    "ruleContent": {
+        "content": "div.txt@html",
+        "nextContentUrl": "@js:var m=result.match(\/href=\"([^\"]+)\"[^>]*class=\"url_next\"\/);m&&m[1].match(\/_\\d+\\.html$\/)?m[1]:''"
+    },
+    "ruleExplore": {
+        "author": "span.s4@text",
+        "bookList": "ul.sort_list li",
+        "bookUrl": "span.s2 a@href",
+        "lastChapter": "span.s2 a@title",
+        "name": "span.s2 a@text"
+    },
+    "ruleSearch": {
+        "author": "span.s5@text",
+        "bookList": "ul.sort_list li",
+        "bookUrl": "span.s2 a@href",
+        "name": "span.s2 a@text"
+    },
+    "ruleToc": {
+        "chapterList": "@js:\nvar chapters = [];\nvar domain = (baseUrl.match(\/^https?:\\\/\\\/[^\\\/]+\/) || [''])[0];\nvar html = src || result || '';\n\nfunction toAbs(u) { return u.indexOf('http') < 0 ? domain + (u.indexOf('\/') === 0 ? '' : '\/') + u : u; }\nfunction grabUl(ulHtml) {\n    var out = [];\n    var re = \/<li><a href=\"([^\"]+)\"[^>]*>([\\s\\S]*?)<\\\/a><\\\/li>\/g;\n    var m;\n    while ((m = re.exec(ulHtml))) {\n        var name = m[2].replace(\/<[^>]+>\/g, '').replace(\/^\\s+|\\s+$\/g, '');\n        if (name && m[1]) out.push({text: name, href: m[1]});\n    }\n    return out;\n}\nfunction selectPages(h) {\n    var sel = h.match(\/<select[^>]*>([\\s\\S]*?)<\\\/select>\/);\n    var urls = [];\n    if (sel) {\n        var re = \/<option[^>]*value=\"([^\"]+)\"\/g, om;\n        while ((om = re.exec(sel[1]))) { var u = toAbs(om[1]); if (urls.indexOf(u) < 0) urls.push(u); }\n    }\n    return urls;\n}\n\n\/\/ 1. 从详情页 章节列表 区块抓取第1-100章(排除最新章节干扰)\nvar cs = html.match(\/<h3[^>]*>章节列表[\\s\\S]*?<ul[^>]*class=\"chapter-list\"[^>]*>([\\s\\S]*?)<\\\/ul>\/);\nif (cs) chapters = chapters.concat(grabUl(cs[1]));\n\n\/\/ 2. 找到第一个 index 页\nvar firstIndex = html.match(\/href=\"([^\"]*index_\\d+\\.html)\"\/);\nvar pages = [];\nif (firstIndex) {\n    var idxHtml = java.ajax(toAbs(firstIndex[1]));\n    pages = selectPages(idxHtml);\n    var u2 = idxHtml.match(\/<ul[^>]*class=\"chapter-list\"[^>]*>([\\s\\S]*?)<\\\/ul>\/);\n    if (u2) chapters = chapters.concat(grabUl(u2[1]));\n}\n\n\/\/ 3. 抓取其余 index 页\nfor (var i = 0; i < pages.length; i++) {\n    if (\/index_\\d+\\.html\/.test(pages[i])) {\n        if (firstIndex && pages[i] === toAbs(firstIndex[1])) continue;\n        var h = java.ajax(pages[i]);\n        var u3 = h.match(\/<ul[^>]*class=\"chapter-list\"[^>]*>([\\s\\S]*?)<\\\/ul>\/);\n        if (u3) chapters = chapters.concat(grabUl(u3[1]));\n    }\n}\n\n\/\/ 4. 按 href 去重(保留首次出现)\nvar seen = {}; var out = [];\nfor (var k = 0; k < chapters.length; k++) {\n    if (!seen[chapters[k].href]) { seen[chapters[k].href] = true; out.push(chapters[k]); }\n}\nout;",
+        "chapterName": "text",
+        "chapterUrl": "href"
+    },
+    "searchUrl": "\/search.html,{\"method\":\"POST\",\"body\":\"s={{key}}\"}",
+    "weight": 0
+}

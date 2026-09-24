@@ -1,0 +1,32 @@
+{
+    "bookSourceComment": "V0.17\n\n1、添加网址：把书籍的目录网址（或 结尾递增 的正文网址）输入阅读APP书架上的添加网址。\n\n2、设置章数：获取目录，出现没图片的 验证码 输入时：\n（1）网址为 结尾递增 的正文网址，则输入 总章数（大于9）。\n（2）不输入内容，正则匹配获取目录。\n（3）输入6，获取所有a链接。\n\n3、如果一直加载目录或章节不存在，可以试试：\n（1）在订阅里新建 单URL 的订阅源，源URL为之前添加的地址。\n（2）从订阅源进入网址，把网址上需要 确认 的点一下。\n\n#、懂正则的可以自己修改正则来适配。\n#、替换净化推荐：开头[\\s\\S]{1,300}结尾\n#、替换的 特定范围 保留最后的网站名+书源，可以只在这个网站生效，比如：苦读书;添加-目录网址",
+    "bookSourceName": "添加-目录网址",
+    "bookSourceType": 0,
+    "bookSourceUrl": "添加-目录网址",
+    "bookUrlPattern": "https?:\/\/.+",
+    "customButton": false,
+    "customOrder": 0,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": false,
+    "eventListener": false,
+    "lastUpdateTime": "1788130966322",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "name": "title@text"
+    },
+    "ruleContent": {
+        "content": "<js>\nconst html = org.jsoup.Jsoup.parse(java.ajax(baseUrl + ',{\"webView\":true}'));\nconst hrefs = [];\nfunction isSameOrigin(url1, url2) {\n\tvar urlreg = \/^(?:https?:)\\\/\\\/([^\\\/:]+)(?:[\\\/:])?\/;\n \tvar javaUrl1 = url1.match(urlreg);\n \tvar javaUrl2 = url2.match(urlreg);\n  return !javaUrl2 || javaUrl1[1] == javaUrl2[1];\n}\nfor (var a of html.select(\"a\")) {\n    var href = a.attr('href');\n    if (href && href != baseUrl && isSameOrigin(baseUrl, href)) {\n    var text = a.text();\n    \tif(text && \/下[—一]?页\/.test(text)){\n    \t\tjava.put(\"下一页3\", href);\n    \t}else if(\/\\d_\\d\/.test(href)){\n    \t  hrefs.push(href);\n    \t}\n    }\n}\njava.put(\"下一页2\", hrefs);\nhtml.select(\"form,cite,a,b,button,h1,h2,h3,h4\").remove();\nhtml.select(\"br,p\").before(\"\\n\");\nconst btext = html.body().wholeText();\njava.put(\"文本内容\", btext);\nbtext;\n<\/js>",
+        "nextContentUrl": "<js>\nvar nowpage = Number(java.get(\"正文页\")) || 1;\nif(nowpage < 25){\n\tjava.put(\"正文页\", nowpage + 1);\nvar next = java.get(\"下一页3\");\nif(!next || !next.length() || next == baseUrl){\nvar nexts = java.get(\"下一页2\").split(\",\");\nvar num = baseUrl.match(\/\\d_(\\d+)\/);\nif(num){\n  num = '_' + (Number(num[1]) + 1);\n  for (var target of nexts) {\n   \tif(target.indexOf(num) !== -1){\n  \t\tnext = target;\n  \t\tbreak;\n\t\t}\n  }\n}else if(nexts[0].length){\n\tnext = nexts[0];\n}\nnext = next && next.length() && next != baseUrl ? next : null;\nif(!next){\nvar page = java.get(\"文本内容\").match(\/第[^\\n\\d]{0,5}(\\d+)\\\/(\\d+)[^\\n\\d]{0,5}页\/);\nif(page){\n\tvar npage = Number(page[1])+1;\n\tvar mpage = Number(page[2]);\n\tif(npage <= mpage){\n\t\tnext = baseUrl.replace(\/(_\\d+)?(\\.html|\\\/)?$\/, \"_\"+npage+\"$2\");\n\t}\n}\n}\n}\nnext;\n}\n<\/js>",
+        "replaceRegex": "<js>\nconst FILTER_RULES = [\n  \/[^一-龟\\n]+function\\(\\)\\{[^一-龟]+\/g,\n]\nfor(let reg of FILTER_RULES){\n\tresult = result.replace(reg, \"\");\n}\nresult;\n<\/js>"
+    },
+    "ruleExplore": {},
+    "ruleSearch": {},
+    "ruleToc": {
+        "chapterList": "<js>\nconst html = org.jsoup.Jsoup.parse(java.ajax(baseUrl + ',{\"webView\":true}'));\nconst allA = html.select(\"a\");\nconst alist = [];\nconst digit = '[\\\\d一二三四五六七八九十零百千万]';\nconst regz = new RegExp(String.raw`前言|后记|番外|(?:序|${digit})(?:[章节回]|[^一-龟\\da-zA-Z]|\\s*$)|[【】]`);\nfor (var a of allA) {\n  var href = a.attr('href');\n  var text = a.text();\n  if(href && href != baseUrl && text){\n    regz.test(text) && alist.push(a);\n   \/下[—一]?页|^\\s*Next\/.test(text) && java.put(\"下一页\", href);\n  }\n}\nconst blist = [];\nconst regn = \/([^\\d])(\\d+)(\\.html|\\\/)?$\/;\nconst isZw = baseUrl.match(regn);\nvar nums = Number(java.get(\"目录类型\")) || -1;\nif (nums == -1 && (isZw || alist.length)) {\n    try { nums = Number(java.getVerificationCode('')); } catch (e) { nums = 1; }\n    java.put(\"目录类型\", nums);\n}\nif(nums > 9 && isZw){\nvar nowUrl = baseUrl;\n for(var i=0;i<nums;i++){\n  blist.push({ href: nowUrl, text: \"第\" + (i + 1) + \"章\" });\n  var matchs = nowUrl.match(regn);\n  nowUrl = nowUrl.replace(regn, \"$1\") + (Number(matchs[2]) + 1) + (matchs[3] || \"\");\n}\n}\nblist.length ? blist : alist.length && nums != 6 ? alist : allA;\n<\/js>",
+        "chapterName": "text",
+        "chapterUrl": "href",
+        "nextTocUrl": "<js>\njava.get(\"下一页\");\n<\/js>"
+    },
+    "weight": 0
+}

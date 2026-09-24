@@ -1,0 +1,47 @@
+{
+    "bookSourceComment": "网站的书都是用户上传，你也可去网站上传\n【技术实现】\n搜索：HTML 搜索（GET \/search.php?q=）\n发现：CSS 选择器（library.php 分页）\n详情：CSS 选择器（详情页与目录同页）\n目录：CSS 选择器（chapter-chip）\n正文：CSS@html + JS 解码，反爬字符自动还原\n登录：POST 表单登录（loginUi + loginUrl，Cookie 持久化）\n\n【局限性】\n- 网站有 GOEDGE WAF 防护，必须使用移动端 UA 请求头\n- 章节以\"段\"为单位（TXT 分段），非传统章节\n- 列表页作者字段实为上传者昵称\n- 登录需在书源设置中配置邮箱和密码（切勿在公开群组分享含账号的书源）",
+    "bookSourceGroup": "小说",
+    "bookSourceName": "存书啦（用户自传）",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.cunshu.la",
+    "bookUrlPattern": "https?:\/\/www\\.cunshu\\.la\/read\/[A-Za-z0-9+\/=]+",
+    "customButton": false,
+    "customOrder": 48,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "最新上传::\/library.php?sort=latest&page={{page}}\n最多阅读::\/library.php?sort=hot&page={{page}}",
+    "header": "{\"User-Agent\":\"Mozilla\/5.0 (Linux; Android 10; SM-G975F) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Mobile Safari\/537.36\"}",
+    "lastUpdateTime": "1787629949061",
+    "loginUi": "[{\"name\": \"登录邮箱\", \"type\": \"text\", \"style\": {\"layout_flexGrow\": 1, \"layout_flexBasisPercent\": 1}}, {\"name\": \"登录密码\", \"type\": \"text\", \"style\": {\"layout_flexGrow\": 1, \"layout_flexBasisPercent\": 1}}]",
+    "loginUrl": "function login() {\n    var info = source.getLoginInfoMap();\n    if (!info) throw new Error('请先输入邮箱和密码');\n    var email = info.get('登录邮箱');\n    var pwd = info.get('登录密码');\n    email = email == null ? '' : String(email).trim();\n    pwd = pwd == null ? '' : String(pwd);\n    if (!email || !pwd) throw new Error('请先输入邮箱和密码');\n    var url = 'https:\/\/www.cunshu.la\/login.php';\n    var body = 'email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(pwd);\n    var headers = {'Content-Type': 'application\/x-www-form-urlencoded'};\n    var resp = java.post(url, body, headers, 30000);\n    if (!resp) throw new Error('登录请求失败');\n    var respBody = resp.body();\n    if (!respBody) throw new Error('登录响应为空');\n    if (respBody.indexOf('邮箱或密码错误') >= 0) throw new Error('邮箱或密码错误');\n    if (respBody.indexOf('auth-form') >= 0) throw new Error('登录失败，请重试');\n}",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "@js:\nvar text = result || \"\";\nvar title = \"\";\ntry { title = baseElement.select(\".ph-name\").text(); } catch(e) {}\ntext = title + \"\\n\" + text;\nvar m = text.match(\/作者\\s*[：:]\\s*([^\\n\\r，。；、！？!?*（）()【】\\[\\]{}《》<>\"'\\s]{1,16})\/);\nif (m) {\n  var name = m[1].replace(\/[，。；、！？!?*（）()【】\\[\\]{}《》<>\"'\\s]+$\/, \"\");\n  name = name.split(\/简介|又名|本书|作品|作者|连载|更新|小说|全文\/)[0];\n  if (name) { result = name; }\n  else { result = \"\"; }\n} else {\n  var m2 = text.match(\/\\b[bB][yY]\\s*[：:]?\\s*([^\\n\\r，。；、！？!?*（）()【】\\[\\]{}《》<>\"'\\s]{1,16})\/);\n  if (m2) {\n    var name2 = m2[1].replace(\/[，。；、！？!?*（）()【】\\[\\]{}《》<>\"'\\s]+$\/, \"\");\n    name2 = name2.split(\/简介|又名|本书|作品|作者|连载|更新|小说|全文\/)[0];\n    if (name2) { result = name2; }\n    else { result = \"\"; }\n  } else { result = \"\"; }\n}",
+        "intro": ".preview-text@text",
+        "name": ".ph-name@text"
+    },
+    "ruleContent": {
+        "content": ".chapter-text@html@js:\nvar html = result;\nhtml = html.replace(\/<span class=\"kw-protect\">([\\s\\S]*?)<\\\/span>\/g, function(m, inner) {\n    return inner.replace(\/<i class=\"cr\" data-cp=\"([0-9a-fA-F]+)\"><\\\/i>\/g, function(m2, cp) {\n        var code = parseInt(cp, 16);\n        if (code && !isNaN(code)) return String.fromCodePoint(code);\n        return '';\n    });\n});\nhtml = html.replace(\/<br\\s*\\\/?>\/gi, '\\n');\nhtml = html.replace(\/<[^>]+>\/g, '');\nhtml = html.replace(\/\\n{3,}\/g, '\\n\\n');\nresult = html;",
+        "nextContentUrl": "text.下一段@href",
+        "title": ".chapter-title@text"
+    },
+    "ruleExplore": {
+        "bookList": ".resource-list .resource-card",
+        "bookUrl": "@href",
+        "name": ".rc-name@text"
+    },
+    "ruleSearch": {
+        "bookList": ".resource-card-group .resource-card",
+        "bookUrl": ".rc-name-link@href",
+        "name": ".rc-name@text"
+    },
+    "ruleToc": {
+        "chapterList": ".chapter-overlay-grid .chapter-chip",
+        "chapterName": "@text",
+        "chapterUrl": "@href"
+    },
+    "searchUrl": "\/search.php?q={{key}}",
+    "weight": 0
+}

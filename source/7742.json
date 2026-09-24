@@ -1,0 +1,50 @@
+{
+    "bookSourceComment": "by艳阳，双域名切换版",
+    "bookSourceGroup": "通常书源",
+    "bookSourceName": "夜伴书屋",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/38.34.172.127\/",
+    "bookUrlPattern": "https?:\\\/\\\/(38\\.34\\.172\\.127|www\\.yybsw\\.com)\\\/.*",
+    "customOrder": 10,
+    "enabled": true,
+    "enabledCookieJar": false,
+    "enabledExplore": true,
+    "exploreUrl": "<js>\nvar host = getServerHost();\nvar cats = [\n    {title: \"奇幻·玄幻\", url: host + \"\/list\/qihuan{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"科幻·游戏\", url: host + \"\/list\/kehuan{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"武侠·仙侠\", url: host + \"\/list\/wuxia{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"女生·言情\", url: host + \"\/list\/yanqing{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"都市·娱乐\", url: host + \"\/list\/dushi{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"历史·军事\", url: host + \"\/list\/lishi{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"悬疑·灵异\", url: host + \"\/list\/xuanyi{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"耽美·纯爱\", url: host + \"\/list\/chunai{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}},\n    {title: \"轻小说\", url: host + \"\/list\/lightnovel{{page}}.html\", style: {layout_flexGrow: 1, layout_flexBasisPercent: 0.25}}\n];\nJSON.stringify(cats);\n<\/js>",
+    "header": "{\"User-Agent\": \"Mozilla\/5.0 (Linux; Android 14; Mobile) Chrome\/120.0 Safari\/537.36\"}",
+    "jsLib": "var hosts = [\n    \"https:\/\/38.34.172.127\",\n    \"https:\/\/www.yybsw.com\"\n];\n\nfunction getHosts() {\n    return hosts;\n}\n\nfunction getServerHost() {\n    var source = this.source;\n    try {\n        var config = JSON.parse(source.getVariable());\n        if (config && config[0] && config[0].host) {\n            return config[0].host;\n        }\n        return getHosts()[0];\n    } catch (e) {\n        return getHosts()[0];\n    }\n}\n\nfunction getConfig() {\n    var source = this.source;\n    try {\n        var configStr = source.getVariable();\n        if (!configStr || configStr.trim() === \"\") {\n            return { host: getHosts()[0] };\n        }\n        var config = JSON.parse(configStr);\n        if (!config || !config.join || config.length === 0) {\n            return { host: getHosts()[0] };\n        }\n        return config[0] || { host: getHosts()[0] };\n    } catch (e) {\n        return { host: getHosts()[0] };\n    }\n}\n\nfunction setConfig(key, value) {\n    var source = this.source;\n    try {\n        var config = getConfig.call(this);\n        config[key] = value;\n        source.setVariable(JSON.stringify([config]));\n        return true;\n    } catch (e) {\n        return false;\n    }\n}\n\nfunction setConfigs(obj) {\n    var source = this.source;\n    try {\n        var config = getConfig.call(this);\n        for (var k in obj) {\n            if (obj.hasOwnProperty(k)) {\n                config[k] = obj[k];\n            }\n        }\n        source.setVariable(JSON.stringify([config]));\n        return true;\n    } catch (e) {\n        return false;\n    }\n}",
+    "lastUpdateTime": "1787427606582",
+    "loginUi": "[{\"name\": \"🔄 切换域名\", \"type\": \"button\", \"action\": \"sethost()\", \"style\": {\"layout_flexGrow\": 1, \"layout_flexBasisPercent\": 0.5}}, {\"name\": \"📋 查看当前域名\", \"type\": \"button\", \"action\": \"checkhost()\", \"style\": {\"layout_flexGrow\": 1, \"layout_flexBasisPercent\": 0.5}}]",
+    "loginUrl": "this.sethost = function() {\n    try {\n        var currentHost = getConfig.call(this).host || getHosts()[0];\n        var currentIndex = getHosts().indexOf(currentHost);\n        var newIndex = (currentIndex + 1) % getHosts().length;\n        var newHost = getHosts()[newIndex];\n        setConfig.call(this, 'host', newHost);\n        java.toast(\"\\n已切换到：\\n\" + newHost + \"\\n刷新发现页生效\");\n    } catch(e) {\n        setConfig.call(this, 'host', getHosts()[0]);\n        java.toast(\"\\n已初始化：\" + getHosts()[0]);\n    }\n};\n\nthis.checkhost = function() {\n    try {\n        var currentHost = getServerHost();\n        java.toast(\"\\n当前服务器：\\n\" + currentHost);\n    } catch(e) {\n        java.toast(\"获取失败\");\n    }\n};",
+    "respondTime": 8000,
+    "ruleBookInfo": {
+        "author": ".book-info .row .col-md-8.0 a@text",
+        "coverUrl": ".book-info img@src",
+        "intro": ".book-detail@text",
+        "lastChapter": ".book-info .row .col-md-8.1 a@text",
+        "tocUrl": "",
+        "wordCount": ".book-info .row .col-md-4.0@text##状态："
+    },
+    "ruleContent": {
+        "content": "#cont-body@html",
+        "nextContentUrl": ".pagination li a@href"
+    },
+    "ruleExplore": {
+        "bookList": ".media",
+        "bookUrl": "h4 a@href",
+        "coverUrl": "img@src",
+        "name": "h4 a@text"
+    },
+    "ruleSearch": {
+        "author": "td.1@text",
+        "bookList": ".table tbody tr",
+        "bookUrl": "td.0 a@href",
+        "name": "td.0 a@text##《|》"
+    },
+    "ruleToc": {
+        "chapterList": "#all-chapter .col-md-6",
+        "chapterName": "a@text",
+        "chapterUrl": "a@href"
+    },
+    "searchUrl": "<js>\nresult = getServerHost() + \"\/plus\/search.php?q=\" + encodeURIComponent(key);\n<\/js>",
+    "weight": 0
+}

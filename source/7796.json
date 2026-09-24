@@ -1,0 +1,59 @@
+{
+    "bookSourceComment": "63书阁(m.63sg.com) 书源\n规则版本: 2026-09-05\n【站点结构】\n  详情页 \/novel\/{id}\/  目录页 \/dir\/{id}\/?page=N&sort=asc(每页50章)\n  正文页 \/read\/{id}\/{卷}\/{章}.html  章内分页 \/read\/{id}\/{卷}\/{章}\/{页}.html\n  搜索 POST \/so.html (searchtype=novelname&searchkey=关键词)\n  分类 \/type\/{分类}_0_{状态}_{排序}_{页码}.html (页码用下划线连接)\n【书源URL正则】bookUrlPattern 同时匹配 m. 与 www. 两个子域\n【UA】header 字段已固定移动端 User-Agent(站点按 UA 下发移动模板)\n【⚠️重要限制：站点付费墙】\n  本站每本书仅前约65章免费，其后章节服务端返回占位文字\n  『请登录后在继续阅读本部小说！』。已实测：注册并登录后该限制依旧存在，\n  加书架也无效，属于站点付费墙而非登录问题。\n  本源的正文规则会把该占位文字替换为明确的付费章节提示。\n  完本小说\/短篇(章节数少于免费额度)可完整阅读。\n【搜索频率】站点限制搜索间隔，请勿频繁搜索。\n【技术说明】\n  1) 列表(搜索\/发现)字段用 @js: 直取 jsoup。原因：实测发现 Legado 的\n     AnalyzeByJSoup 在同一元素上连续解析多条 CSS 规则时存在 Elements 状态污染，\n     会使靠后的 bookUrl\/kind 规则返回空并回退成列表页地址(表现为整页只出1本书)。\n     改用 @js: 走 JS 通道可完全规避，且带 a.cover 兜底。\n  2) 站点按固定字数硬切分页，会把 &nbsp; 实体切成两半(如 &nb \/ sp; 、&n \/ bsp;)，\n     且孤立 & 会被 jsoup 转义成 &amp;。content 规则内联\n     ##&(?:amp;)?n(?:b(?:s(?:p;?)?)?)?|nbsp;?|sp;|(?<=>)(?:p;|;|bsp;)|&amp;(?![a-zA-Z#])|&(?![a-zA-Z#])##\n     统一清除各类碎片与冗余缩进实体，同时保留 &amp;B \/ &#123; 等正常写法。\n  3) chapterList 用 @js: 过滤站点脏数据：个别书的目录里混有 \/0.html 这类不存在的章节\n     (访问会 302 回详情页导致内容为空)；intro 用 @js: 对半去重，修复部分书 og:description\n     被站点自身写重复两遍的问题。\n  4) nextContentUrl 用 #next_url 定位，并用正则把三段式(下一章)清空，只保留四段式(章内下一页)。\n",
+    "bookSourceGroup": "AI",
+    "bookSourceName": "63书阁",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/m.63sg.com",
+    "bookUrlPattern": "https?:\/\/(?:m|www)\\.63sg\\.com\/novel\/\\d+\/?",
+    "customButton": false,
+    "customOrder": 1,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "📖 全部·最近更新::https:\/\/m.63sg.com\/type\/0_0_0_lastupdate_{{page}}.html\n🆕 最新入库::https:\/\/m.63sg.com\/type\/0_0_0_postdate_{{page}}.html\n🔥 人气总榜::https:\/\/m.63sg.com\/type\/0_0_0_votenum_{{page}}.html\n⭐ 收藏榜单::https:\/\/m.63sg.com\/type\/0_0_0_marknum_{{page}}.html\n📈 周点击榜::https:\/\/m.63sg.com\/type\/0_0_0_weekvisit_{{page}}.html\n🗂 玄幻小说::https:\/\/m.63sg.com\/type\/1_0_0_lastupdate_{{page}}.html\n🗂 仙侠小说::https:\/\/m.63sg.com\/type\/2_0_0_lastupdate_{{page}}.html\n🗂 都市小说::https:\/\/m.63sg.com\/type\/3_0_0_lastupdate_{{page}}.html\n🗂 职场小说::https:\/\/m.63sg.com\/type\/4_0_0_lastupdate_{{page}}.html\n🗂 历史小说::https:\/\/m.63sg.com\/type\/5_0_0_lastupdate_{{page}}.html\n🗂 军事小说::https:\/\/m.63sg.com\/type\/6_0_0_lastupdate_{{page}}.html\n🗂 科幻小说::https:\/\/m.63sg.com\/type\/7_0_0_lastupdate_{{page}}.html\n🗂 游戏小说::https:\/\/m.63sg.com\/type\/8_0_0_lastupdate_{{page}}.html\n🗂 灵异小说::https:\/\/m.63sg.com\/type\/9_0_0_lastupdate_{{page}}.html\n🗂 短篇小说::https:\/\/m.63sg.com\/type\/10_0_0_lastupdate_{{page}}.html\n🗂 现言小说::https:\/\/m.63sg.com\/type\/11_0_0_lastupdate_{{page}}.html\n🗂 古言小说::https:\/\/m.63sg.com\/type\/12_0_0_lastupdate_{{page}}.html\n🗂 幻侠小说::https:\/\/m.63sg.com\/type\/13_0_0_lastupdate_{{page}}.html\n🗂 穿越小说::https:\/\/m.63sg.com\/type\/14_0_0_lastupdate_{{page}}.html\n🗂 总裁小说::https:\/\/m.63sg.com\/type\/15_0_0_lastupdate_{{page}}.html\n🗂 浪漫小说::https:\/\/m.63sg.com\/type\/16_0_0_lastupdate_{{page}}.html\n🗂 耽美小说::https:\/\/m.63sg.com\/type\/17_0_0_lastupdate_{{page}}.html\n📚 全部·全本::https:\/\/m.63sg.com\/type\/0_0_2_lastupdate_{{page}}.html\n📚 玄幻·全本::https:\/\/m.63sg.com\/type\/1_0_2_lastupdate_{{page}}.html\n📚 仙侠·全本::https:\/\/m.63sg.com\/type\/2_0_2_lastupdate_{{page}}.html\n📚 都市·全本::https:\/\/m.63sg.com\/type\/3_0_2_lastupdate_{{page}}.html\n📚 职场·全本::https:\/\/m.63sg.com\/type\/4_0_2_lastupdate_{{page}}.html\n📚 历史·全本::https:\/\/m.63sg.com\/type\/5_0_2_lastupdate_{{page}}.html\n📚 军事·全本::https:\/\/m.63sg.com\/type\/6_0_2_lastupdate_{{page}}.html\n📚 科幻·全本::https:\/\/m.63sg.com\/type\/7_0_2_lastupdate_{{page}}.html\n📚 游戏·全本::https:\/\/m.63sg.com\/type\/8_0_2_lastupdate_{{page}}.html\n📚 灵异·全本::https:\/\/m.63sg.com\/type\/9_0_2_lastupdate_{{page}}.html",
+    "header": "{\"User-Agent\": \"Mozilla\/5.0 (Linux; Android 13; Pixel 7) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Mobile Safari\/537.36\"}",
+    "lastUpdateTime": "1788610159929",
+    "respondTime": 14923,
+    "ruleBookInfo": {
+        "author": "[property='og:novel:author']@content",
+        "coverUrl": "[property='og:image']@content",
+        "intro": "@js:(function(){try{var d=(result&&typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var n=d.select('meta[property=og:description]');if(n.isEmpty())return '';var s=String(n.first().attr('content'));var h=Math.floor(s.length\/2);if(h>30&&s.substring(0,h)===s.substring(h)){s=s.substring(0,h);}return s;}catch(x){return '';}})()",
+        "kind": "[property='og:novel:category']@content",
+        "lastChapter": "[property='og:novel:latest_chapter_name']@content",
+        "name": "[property='og:novel:book_name']@content",
+        "tocUrl": ".bookchaptermore@href"
+    },
+    "ruleContent": {
+        "content": "#booktxt@html##&(?:amp;)?n(?:b(?:s(?:p;?)?)?)?|nbsp;?|sp;|(?<=>)(?:p;|;|bsp;)|&amp;(?![a-zA-Z#])|&(?![a-zA-Z#])##",
+        "nextContentUrl": "#next_url@href##\/read\/\\d+\/\\d+\/\\d+\\.html$##",
+        "replaceRegex": "##~{5,}请登录后在继续阅读本部小说！~{5,}##⚠️ 本章为付费章节：63书阁每本书仅前约65章免费试读，完本小说\/短篇不受影响。"
+    },
+    "ruleExplore": {
+        "author": "@js:(function(){try{var e=result.select('dd').last().select('a').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "bookList": ".content@dl",
+        "bookUrl": "@js:(function(){try{var e=result.select('dt a').first();if(e==null){e=result.select('a.cover').first()}return e==null?'':String(e.attr('href'))}catch(x){return ''}})()",
+        "coverUrl": "@js:(function(){try{var e=result.select('a.cover').first().select('img').first();return e==null?'':String(e.attr('src'))}catch(x){return ''}})()",
+        "intro": "@js:(function(){try{var e=result.select('dd').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "kind": "@js:(function(){try{var e=result.select('dd').last().select('span').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "name": "@js:(function(){try{var e=result.select('dt a').first();return e==null?'':String(e.text())}catch(x){return ''}})()"
+    },
+    "ruleSearch": {
+        "author": "@js:(function(){try{var e=result.select('dd').last().select('a').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "bookList": ".content@dl",
+        "bookUrl": "@js:(function(){try{var e=result.select('dt a').first();if(e==null){e=result.select('a.cover').first()}return e==null?'':String(e.attr('href'))}catch(x){return ''}})()",
+        "checkKeyWord": "大明",
+        "coverUrl": "@js:(function(){try{var e=result.select('a.cover').first().select('img').first();return e==null?'':String(e.attr('src'))}catch(x){return ''}})()",
+        "intro": "@js:(function(){try{var e=result.select('dd').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "kind": "@js:(function(){try{var e=result.select('dd').last().select('span').first();return e==null?'':String(e.text())}catch(x){return ''}})()",
+        "name": "@js:(function(){try{var e=result.select('dt a').first();return e==null?'':String(e.text())}catch(x){return ''}})()"
+    },
+    "ruleToc": {
+        "chapterList": "@js:(function(){var d=(result&&typeof result.select==='function')?result:Packages.org.jsoup.Jsoup.parse(String(result));var all=d.select('ul.mt0 li a');var out=new Packages.java.util.ArrayList();for(var i=0;i<all.size();i++){var a=all.get(i);var seg=String(a.attr('href')).split('\/').pop();var num=seg.replace('.html','');if(num.length>0&&num!=='0'){out.add(a);}}return out.size()>0?out:all;})()",
+        "chapterName": "text",
+        "chapterUrl": "href",
+        "nextTocUrl": "select#indexselect@option@value"
+    },
+    "searchUrl": "https:\/\/m.63sg.com\/so.html,{\"method\":\"POST\",\"body\":\"searchtype=novelname&searchkey={{key}}\"}",
+    "weight": 0
+}

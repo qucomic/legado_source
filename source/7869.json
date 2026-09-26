@@ -1,0 +1,67 @@
+{
+    "bookSourceComment": "by 艳阳\nwarning:该书源仅支持精准搜索！",
+    "bookSourceGroup": "通常书源",
+    "bookSourceName": "伪速读谷²",
+    "bookSourceType": 0,
+    "bookSourceUrl": "https:\/\/www.sudugu.cc",
+    "bookUrlPattern": "https?:\/\/www\\.sudugu\\.cc\/\\d+(\/.*)?",
+    "customButton": false,
+    "customOrder": 5,
+    "enabled": true,
+    "enabledCookieJar": true,
+    "enabledExplore": true,
+    "eventListener": false,
+    "exploreUrl": "玄幻小说::\/fenlei\/1\/{{page}}\/\n仙侠小说::\/fenlei\/2\/{{page}}\/\n都市小说::\/fenlei\/3\/{{page}}\/\n历史小说::\/fenlei\/4\/{{page}}\/\n军事小说::\/fenlei\/5\/{{page}}\/\n科幻小说::\/fenlei\/6\/{{page}}\/\n言情小说::\/fenlei\/7\/{{page}}\/\n轻小说::\/fenlei\/8\/{{page}}\/\n诸天无限::\/fenlei\/9\/{{page}}\/\n游戏小说::\/fenlei\/10\/{{page}}\/\n奇幻小说::\/fenlei\/11\/{{page}}\/\n悬疑小说::\/fenlei\/12\/{{page}}\/\n体育小说::\/fenlei\/13\/{{page}}\/\n官场小说::\/fenlei\/14\/{{page}}\/\n武侠小说::\/fenlei\/15\/{{page}}\/\n现实小说::\/fenlei\/16\/{{page}}\/\n完结小说::\/quanben\/{{page}}.html\n最新更新::\/top\/lastupdate\/{{page}}.html",
+    "header": "{\"User-Agent\":\"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Safari\/537.36\"}",
+    "lastUpdateTime": "1790259463642",
+    "loginUrl": "",
+    "respondTime": 180000,
+    "ruleBookInfo": {
+        "author": "@css:.itemtxt p:eq(1) a@text##作者：",
+        "coverUrl": "@css:.item a img@src",
+        "intro": "class.des.0@text",
+        "kind": "p@span@text",
+        "lastChapter": "@css:.itemtxt ul li:eq(0) a@text",
+        "name": "@css:.itemtxt h1 a@text",
+        "tocUrl": "",
+        "wordCount": "@css:.itemtxt h1 i script@html##\\D"
+    },
+    "ruleContent": {
+        "content": "@css:.con@textNodes",
+        "nextContentUrl": "@css:.prenext span:eq(1) a@href",
+        "sourceRegex": "[^<]*首发更新站点。<br \/>\\s*",
+        "webJs": ""
+    },
+    "ruleExplore": {
+        "author": "@css:.itemtxt p:eq(1) a@text##作者：",
+        "bookList": "@css:.item",
+        "bookUrl": "@css:.itemtxt h3 a@href",
+        "coverUrl": "@css:.item a img@src",
+        "intro": "",
+        "kind": "p@span@text",
+        "lastChapter": "@css:.itemtxt ul li:eq(0) a@text",
+        "name": "@css:.itemtxt h3 a@text"
+    },
+    "ruleSearch": {
+        "author": "@css:.itemtxt ul li:eq(0)@text##作者：",
+        "bookList": "@css:.item",
+        "bookUrl": "@css:.itemtxt h3 a@href",
+        "checkKeyWord": "没钱修什么仙",
+        "coverUrl": "",
+        "intro": "@css:.itemtxt p@text##简介：",
+        "kind": "p@span@text",
+        "lastChapter": "@css:.itemtxt ul li:eq(2) a@text",
+        "name": "@css:.itemtxt h3 a@text",
+        "wordCount": ""
+    },
+    "ruleToc": {
+        "chapterList": "@css:#list ul li",
+        "chapterName": "@css:a@text",
+        "chapterUrl": "@css:a@href",
+        "isVip": "",
+        "nextTocUrl": "@css:#pages a.gr@href",
+        "updateTime": ""
+    },
+    "searchUrl": "\/modules\/article\/search.php,{\"method\":\"POST\",\"body\":\"searchkey={{key}}&searchtype=articlename&action=login\"}",
+    "weight": 0
+}

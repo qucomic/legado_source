@@ -1,4 +1,5 @@
 ## 阅读书源
+- [魔丸小说 https://www.mowan.lol](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7872.json)
 - [篱笆好文学 https://m.libahao2.com](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7868.json)
 - [得奇小说网(deqixs.cc)20260904 https://www.deqixs.cc](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7867.json)
 - [抖音小说(douyinxs.com)20260919 https://www.douyinxs.com](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7866.json)
@@ -99,3 +100,6 @@
 - [番茄听书[官方] 番茄听书官方本地接口 by咪咪喵原创 搬运请注明来源！](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7734.json)
 - [速读谷² https://www.shudugu.org](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7733.json)
 - [🎉 聚合书库 https://book4.cc](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7732.json)
+- [起点小说 https://www.qidian.com/#on-toc-v2](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7871.json)
+- [可乐小说 https://www.kelexs.com](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7870.json)
+- [伪速读谷² https://www.sudugu.cc](https://raw.githubusercontent.com/qucomic/legado_source/refs/heads/main/source/7869.json)
